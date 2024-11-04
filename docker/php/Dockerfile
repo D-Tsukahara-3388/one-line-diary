@@ -10,26 +10,25 @@ RUN apt-get update \
     debconf-utils \
     gcc \
     git \
-	#gnupg2 \ GPG署名？
-	mariadb-client \
-	libfontconfig1 \
+    mariadb-client \
+    libfontconfig1 \
     libfreetype6-dev \
     libicu-dev \
     libjpeg62-turbo-dev \
-	libmagickwand-dev \
+    libmagickwand-dev \
     libpng-dev \
-	libxrender1 \
+    libxrender1 \
     libzip-dev \
     locales \
     #ssl-cert \
     unzip \
     vim \
-    zlib1g-dev \	
+    zlib1g-dev \
   && docker-php-ext-install \
     zip \
-	pdo_mysql \ 
-	intl \ 
-	sockets \
+    pdo_mysql \
+    intl \
+    sockets \
   && docker-php-ext-configure gd --enable-gd --with-jpeg \
   && docker-php-ext-install -j$(nproc) gd \
   && docker-php-ext-install opcache \
@@ -39,6 +38,9 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && echo "en_US.UTF-8 UTF-8" >/etc/locale.gen \
   && locale-gen
+
+# Redis拡張をインストール
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Composer インストール
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -59,10 +61,6 @@ RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 # PATHを設定
 ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin/:$PATH"
 
-# Node.jsとnpmのバージョン確認
-RUN node --version
-RUN npm --version
-
 # laravel インストール
 COPY ./src /var/www/html/
 WORKDIR /var/www/html/
@@ -77,4 +75,3 @@ ENV TZ Asia/Tokyo
 RUN echo "${TZ}" > /etc/timezone \
    && dpkg-reconfigure -f noninteractive tzdata
 
-#RUN npm install vite --save-dev
