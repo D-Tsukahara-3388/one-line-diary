@@ -61,17 +61,10 @@ RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 # PATHを設定
 ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin/:$PATH"
 
-# laravel インストール
-COPY ./src /var/www/html/
-WORKDIR /var/www/html/
-RUN chmod -R a+w storage/ bootstrap/cache
-RUN composer install
-RUN cp .env.example .env
-RUN php artisan key:generate
-RUN php artisan storage:link
-
 # TimeZone settings
 ENV TZ Asia/Tokyo
 RUN echo "${TZ}" > /etc/timezone \
    && dpkg-reconfigure -f noninteractive tzdata
+
+WORKDIR /var/www/html/
 
