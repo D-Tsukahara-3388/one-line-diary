@@ -41,7 +41,7 @@ services:
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-    command: sh -c "chmod 644 /etc/mysql/conf.d/my.cnf && mysqld"
+    command: sh -c "who && chmod 644 /etc/mysql/conf.d/my.cnf && chown -R mysql:mysql /var/lib/mysql && chmod -R 755 /var/lib/mysql && mysqld"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
