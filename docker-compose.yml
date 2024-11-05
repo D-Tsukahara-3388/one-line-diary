@@ -14,7 +14,7 @@ services:
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
       - ./docker/php/setup.sh:/usr/local/bin/laravel_setup.sh
     working_dir: /var/www/html
-    command: sh -c "chmod +x /usr/local/bin/laravel_setup.sh && /usr/local/bin/laravel_setup.sh && npm run dev & php-fpm"
+    command: sh -c "npm run dev & php-fpm"
 
   web:
     image: nginx:1.26.2

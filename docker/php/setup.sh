@@ -20,8 +20,8 @@ fi
 
 # .envファイルが存在しない場合、初期設定をする
 if [ ! -f .env ]; then
-    echo "Copying .env.sample to .env..."
-    cp .env.sample .env
+    echo "Copying .env.example to .env..."
+    cp .env.example .env
 
     echo "Generating application key..."
     php artisan key:generate
@@ -42,4 +42,8 @@ if [ ! -L public/storage ]; then
 else
     echo "Symbolic link for storage already exists."
 fi
+
+# マイグレーションを実行
+echo "Running migrations..."
+php artisan migrate --force
 
