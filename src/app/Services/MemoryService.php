@@ -9,9 +9,6 @@ class MemoryService
 {
     private MemoryRepository $memoryRepository;
     
-    /**
-     * 
-     */
     public function __construct(
         MemoryRepository $memoryRepository
     ) {
@@ -19,7 +16,7 @@ class MemoryService
     }
     
     /**
-     * 
+     * 一覧取得
      * @param int $user_id
      * @param array $payload
      */
@@ -37,7 +34,7 @@ class MemoryService
     }
     
     /**
-     * 
+     * 登録
      * @param int $userId
      * @param array $payload
      */
@@ -52,7 +49,7 @@ class MemoryService
     }
     
     /**
-     * 
+     * 更新
      * @param Memory $memory
      * @param array $payload
      */
@@ -68,17 +65,17 @@ class MemoryService
     }
    
     /**
-     * 
+     * 削除
      * @param Memory $memory
      */
     public function delete(Memory $memory)
     {
-        // TODO:
+        // TODO: repository側までいって処理するべきか
         $memory->delete();
     }
     
     /**
-     * 
+     * 画像登録処理
      * @param unknown $userId
      * @param unknown $image
      * @return NULL|string

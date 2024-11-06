@@ -17,6 +17,7 @@ class CreateMemoryRequest extends FormRequest
             'recorded_date' => [
                 'required', 
                 'date',
+                // 同一人物の同日投稿はできない
                 'unique:memories,recorded_date,NULL,id,user_id,' . auth::getUser()->id,
             ],
             'sentence' => ['required', 'string', 'max:50'],

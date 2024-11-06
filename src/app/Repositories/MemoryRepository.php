@@ -8,7 +8,7 @@ use PhpParser\Builder;
 class MemoryRepository
 {
     /**
-     * 
+     * 一覧検索
      * @param int $page
      * @param int $perPage
      * @param int $user_id
@@ -50,7 +50,7 @@ class MemoryRepository
     }
     
     /**
-     * 
+     * 登録
      * @param int $userId
      * @param Carbon $recordedDate
      * @param string $sentence
@@ -71,7 +71,7 @@ class MemoryRepository
     }
     
     /**
-     * 
+     * 更新
      * @param int $id
      * @param int $userId
      * @param Carbon $recordedDate
