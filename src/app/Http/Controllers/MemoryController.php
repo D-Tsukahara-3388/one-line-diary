@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMemoryRequest;
 use App\Http\Requests\GetMemoryListRequest;
+use App\Http\Requests\UpdateMemoryRequest;
 use App\Models\Memory;
 use App\Services\MemoryService;
 use Illuminate\Http\Request;
@@ -62,9 +63,12 @@ class MemoryController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function edit()
+    public function edit(Memory $memory)
     {
-        return view('memory.index');
+        if (auth::getUser()->id != $memory->user_id) {
+            abort(404); 
+        }
+        return view('memory.edit', compact(['memory']));
     }
     
     /**
@@ -72,9 +76,13 @@ class MemoryController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function update()
+    public function update(Memory $memory, UpdateMemoryRequest $request)
     {
-        return redirect()->route('memory.index')->with('success', '日記が削除されました。');
+        if (auth::getUser()->id != $memory->user_id) {
+            abort(404);
+        }        
+        $this->memoryService->update($memory, $request->validated());
+        return redirect()->route('memory.index')->with('success', '日記が更新されました。');
     }
     
     /**

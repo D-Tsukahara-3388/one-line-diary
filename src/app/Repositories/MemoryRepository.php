@@ -70,4 +70,29 @@ class MemoryRepository
         $memory->save();
     }
     
+    /**
+     * 
+     * @param int $id
+     * @param int $userId
+     * @param Carbon $recordedDate
+     * @param string $sentence
+     * @param string $imageFilePath
+     */
+    public function update(
+        int $id,
+        int $userId,
+        Carbon $recordedDate,
+        string $sentence,
+        ?string $imageFilePath,
+    ){
+        $memory = Memory::findOrFail($id);
+        $memory['user_id'] = $userId;
+        $memory['recorded_date'] = $recordedDate;
+        $memory['sentence'] = $sentence;
+        if (!is_null($imageFilePath)) {
+            $memory['image_file_path'] = $imageFilePath;
+        }        
+        $memory->save();
+    }
+    
 }

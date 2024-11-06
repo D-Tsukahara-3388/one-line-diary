@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\Memory;
 use App\Repositories\MemoryRepository;
+use Carbon\Carbon;
 
 class MemoryService
 {
@@ -50,6 +51,22 @@ class MemoryService
         );
     }
     
+    /**
+     * 
+     * @param Memory $memory
+     * @param array $payload
+     */
+    public function update(Memory $memory, array $payload)
+    {
+        $this->memoryRepository->update(
+            id: $memory->id,
+            userId: $memory->user_id,
+            recordedDate: Carbon::parse($memory->recorded_date),
+            sentence: $payload['sentence'],
+            imageFilePath: $this->uploadImage($memory->user_id, $payload['image_file_path']),
+        );
+    }
+   
     /**
      * 
      * @param Memory $memory

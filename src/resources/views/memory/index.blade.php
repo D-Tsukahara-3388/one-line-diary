@@ -45,7 +45,9 @@
                       {{ str_replace('-', '/', $memory->recorded_date) }}
                     </td>
                     <td>
+                    @if($memory->image_file_path)
                       <img class="w-100" src="{{ url('/image/' . $memory->user_id . '/' . $memory->image_file_path) }}" alt="Uploaded Image" />
+                    @endif
                     </td>
                     <td>
                       {{ $memory->sentence }}
@@ -85,9 +87,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
 @stop
