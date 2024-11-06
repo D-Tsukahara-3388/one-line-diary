@@ -48,4 +48,26 @@ class MemoryRepository
         // ページネーション
         return $query->paginate($perPage, ['*'], 'page', $page);
     }
+    
+    /**
+     * 
+     * @param int $userId
+     * @param Carbon $recordedDate
+     * @param string $sentence
+     * @param string $imageFilePath
+     */
+    public function create(
+        int $userId,
+        Carbon $recordedDate,
+        string $sentence,
+        ?string $imageFilePath,
+    ){
+        $memory = new Memory();
+        $memory['user_id'] = $userId;
+        $memory['recorded_date'] = $recordedDate;
+        $memory['sentence'] = $sentence;
+        $memory['image_file_path'] = $imageFilePath;
+        $memory->save();
+    }
+    
 }

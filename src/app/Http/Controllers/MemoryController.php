@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMemoryRequest;
 use App\Http\Requests\GetMemoryListRequest;
 use App\Models\Memory;
 use App\Services\MemoryService;
@@ -50,9 +51,10 @@ class MemoryController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function create()
+    public function create(CreateMemoryRequest $request)
     {
-        return view('memory.index');
+        $this->memoryService->create(auth::getUser()->id, $request->validated());
+        return redirect()->route('memory.index')->with('success', '日記が投稿されました。');
     }
     
     /**
@@ -72,7 +74,7 @@ class MemoryController extends Controller
      */
     public function update()
     {
-        return view('memory.index');
+        return redirect()->route('memory.index')->with('success', '日記が削除されました。');
     }
     
     /**

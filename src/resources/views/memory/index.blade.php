@@ -41,9 +41,15 @@
                   <tbody>
                 @foreach($memories as $memory)
                   <tr>
-                    <td>{{ str_replace('-', '/', $memory->recorded_date) }}</td>
-                    <td></td>
-                    <td>{{ $memory->sentence }}</td>
+                    <td>
+                      {{ str_replace('-', '/', $memory->recorded_date) }}
+                    </td>
+                    <td>
+                      <img class="w-100" src="{{ url('/image/' . $memory->user_id . '/' . $memory->image_file_path) }}" alt="Uploaded Image" />
+                    </td>
+                    <td>
+                      {{ $memory->sentence }}
+                    </td>
                     <td>
                        <div class="mb-3">
                     		<a href="{{ route('memory.edit', ['memory' => $memory->id]) }}"
